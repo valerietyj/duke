@@ -21,31 +21,26 @@ public class Duke {
             input = sc.nextLine();
 
             if (input.equals("list")) {
+                if (count == 0) {
+                    System.out.println("nothing in list");
+                }
+                for (int i = 0; i < count; i++) {
+                    System.out.println((i + 1) + ". " + listArray[i]);
+                }
+                continue;
+            }
+            else if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
-            if (input.equals("bye")) {
-                break;
+            else if (!input.isEmpty())
+            {
+                System.out.println("added: " + input);
+                listArray[count] = input;
+                count++;
             }
-
-            System.out.println("added: " + input);
-            listArray[count] = input;
-            count++;
 
         } while (!input.isEmpty());
 
-
-        if (input.equals("list")) {
-            for (int i = 0; i < count; i++) {
-                System.out.println((i+1) + ". " + listArray[i]);
-
-            }
-            System.out.println("\nBye. Hope to see you again soon!");
-        }
-        else if (input.equals("bye"))
-        {
-            System.out.println("Bye. Hope to see you again soon!");
-        }
-
     }
-
 }
