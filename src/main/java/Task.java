@@ -4,8 +4,8 @@ public class Task {
     public int key;
 
 
-    public Task(int id, String description) {
-        this.key = id;
+    public Task(int key, String description) {
+        this.key = key;
         this.description = description;
         this.isDone = false;
     }
@@ -14,9 +14,10 @@ public class Task {
         return (isDone ? "YES" : "NO"); //return tick or X symbols
     }
 
-    public void markAsDone(boolean value) {
-        this.isDone = value;
+    public void markAsDone() {
+        this.isDone = true;
 
     }
+
 
 }
