@@ -1,4 +1,7 @@
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -119,11 +122,11 @@ public class Duke {
 
                 String arr[] = input.split(" ", 2);
                 String taskName = arr[0]; //task name
-            //    arr[1].replace("\\W","");
-             //   System.out.println(arr[1]);
+                arr[1].replace("\\W","");
+                //   System.out.println(arr[1]);
                 Scanner sc1 = new Scanner(arr[0]);
                 if (sc1.hasNext("todo") || sc1.hasNext("deadline") || sc1.hasNext("event")){
-                  //  System.out.print("");
+                    //  System.out.print("");
                     try {
 
                         if (!arr[1].isEmpty()) {
@@ -133,16 +136,28 @@ public class Duke {
                                 String start[] = theRest.split("/by", 2);
                                 String deadlineName = start[0]; //event name
                                 String deadlineTime = start[1]; //date
+                                String deadDate = deadlineTime.replaceAll(" ", "");
 
-                                storeList.add(new Deadline(deadlineName, deadlineTime));
+                                SimpleDateFormat inputDate = new SimpleDateFormat("dd/MM/yyy HHmm");
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyy, h:mma"); // duke to understand this format
+                                Date dlInput = inputDate.parse(deadlineTime);
+                                deadDate = formatter.format(dlInput);
+                                // System.out.println(date);
+
+                                storeList.add(new Deadline(deadlineName, deadDate));
 
                             } else if (taskName.equals("event")) {
 
                                 String start1[] = theRest.split("/at", 2);
                                 String eventName = start1[0]; //event name
                                 String eventTime = start1[1]; //date
+                                String eventDate = eventTime.replaceAll(" ", "");
 
-                                storeList.add(new Events(eventName, eventTime));
+                                SimpleDateFormat inputDate = new SimpleDateFormat("dd/MM/yyy HHmm");
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyy, h:mma"); // duke to understand this format
+                                Date dlInput = inputDate.parse(eventTime);
+                                eventDate = formatter.format(dlInput);
+                                storeList.add(new Events(eventName, eventDate));
 
                             } else if (taskName.equals("todo")) {
                                 storeList.add(new todo(theRest));
@@ -162,7 +177,7 @@ public class Duke {
 
                         }
                     }
-                    catch (ArrayIndexOutOfBoundsException e) {
+                    catch (ArrayIndexOutOfBoundsException | ParseException e) {
                         System.out.println("☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
                     }
                 }
