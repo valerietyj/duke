@@ -1,7 +1,4 @@
 import java.io.*;
-import java.sql.Array;
-import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -10,29 +7,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-class customException extends Exception
-{
-    public customException(String s)
-    {
-        // Call constructor of parent Exception
-        super(s);
-    }
-}
+
 public class Duke {
 
-    public static void main(String[] args) throws IOException, customException {
+    public static void main(String[] args) throws IOException, customException{
         ArrayList<Task> storeList = new ArrayList<Task>();
         String filePath = "/Users/impt/Desktop/duke/data/duke.txt";
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(file, true);
         String tempStore = "";
         int taskCount = 0;
-      /*  try {
 
-            while (inFile.hasNextLine()); {
-                System.out.println(inFile.nextLine())
-            }
-        } */
         try {
             Scanner inFile = new Scanner(new File(filePath));
             while (inFile.hasNextLine()) {
@@ -131,60 +116,65 @@ public class Duke {
             } else if (!input.isEmpty()) {
 
                 // print task name
+
                 String arr[] = input.split(" ", 2);
                 String taskName = arr[0]; //task name
+            //    arr[1].replace("\\W","");
+             //   System.out.println(arr[1]);
+                Scanner sc1 = new Scanner(arr[0]);
+                if (sc1.hasNext("todo") || sc1.hasNext("deadline") || sc1.hasNext("event")){
+                  //  System.out.print("");
+                    try {
 
-                if (!taskName.equals("deadline") || !taskName.equals("todo") || !taskName.equals("event"))  {
-                    throw new customException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
-             /*   try {
-                    if (!taskName.equals("deadline"))
-                        throw new Exception();
+                        if (!arr[1].isEmpty()) {
+                            String theRest = arr[1];
 
-                } catch (Exception e) {
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                } */
-                try {
-                    if (!arr[1].isEmpty()) {
-                        String theRest = arr[1];
+                            if (taskName.equals("deadline")) {
+                                String start[] = theRest.split("/by", 2);
+                                String deadlineName = start[0]; //event name
+                                String deadlineTime = start[1]; //date
 
-                        if (taskName.equals("deadline")) {
-                            String start[] = theRest.split("/by", 2);
-                            String deadlineName = start[0]; //event name
-                            String deadlineTime = start[1]; //date
+                                storeList.add(new Deadline(deadlineName, deadlineTime));
 
-                            storeList.add(new Deadline(deadlineName, deadlineTime));
+                            } else if (taskName.equals("event")) {
 
-                        } else if (taskName.equals("event")) {
+                                String start1[] = theRest.split("/at", 2);
+                                String eventName = start1[0]; //event name
+                                String eventTime = start1[1]; //date
 
-                            String start1[] = theRest.split("/at", 2);
-                            String eventName = start1[0]; //event name
-                            String eventTime = start1[1]; //date
+                                storeList.add(new Events(eventName, eventTime));
 
-                            storeList.add(new Events(eventName, eventTime));
+                            } else if (taskName.equals("todo")) {
+                                storeList.add(new todo(theRest));
 
-                        } else if (taskName.equals("todo")) {
-                            code = "T";
-                            storeList.add(new todo(theRest));
+                            }
+
+                            System.out.println("Got it. I've added this task: ");
+                            System.out.println(storeList.get(storeList.size()-1).toString());
+                            taskCount++;
+                            System.out.println("Now you have " + (taskCount) + " tasks in the list.");
+
+                            PrintWriter writer = new PrintWriter(fileWriter);
+                            writer.println(storeList.get(count).storeList());
+                            writer.close();
+
+                            count++;
 
                         }
-
-                        System.out.println("Got it. I've added this task: ");
-                        System.out.println(storeList.get(storeList.size()-1).toString());
-                        taskCount++;
-                        System.out.println("Now you have " + (taskCount) + " tasks in the list.");
-
-                        PrintWriter writer = new PrintWriter(fileWriter);
-                        writer.println(storeList.get(count).storeList());
-                        writer.close();
-
-                        count++;
-
+                    }
+                    catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
                     }
                 }
-                catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
+                else {
+                    try {
+                        throw new customException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    } catch (Exception e) {
+                        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
                 }
+
+
 
             }
         } while (!input.isEmpty());
@@ -224,5 +214,4 @@ public class Duke {
             }
         }
     }
-
 }
