@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 import java.sql.Array;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -11,18 +10,29 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+class customException extends Exception
+{
+    public customException(String s)
+    {
+        // Call constructor of parent Exception
+        super(s);
+    }
+}
 public class Duke {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, customException {
         ArrayList<Task> storeList = new ArrayList<Task>();
         String filePath = "/Users/impt/Desktop/duke/data/duke.txt";
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(file, true);
         String tempStore = "";
         int taskCount = 0;
+      /*  try {
 
-        //read from file
+            while (inFile.hasNextLine()); {
+                System.out.println(inFile.nextLine())
+            }
+        } */
         try {
             Scanner inFile = new Scanner(new File(filePath));
             while (inFile.hasNextLine()) {
@@ -101,14 +111,14 @@ public class Duke {
                 String status = storeList.get(list - 1).getStatusIcon();
                 System.out.println("[" + status + "] " + storeList.get(list - 1).description);
 
-              //  System.out.println(storeList.get(list-1).storeList());
+                //  System.out.println(storeList.get(list-1).storeList());
                 modifyFile(filePath, toOverwrite, storeList.get(list-1).storeList());
 
             } else if (input.equals("list")) {
-                if (storeList.isEmpty()) {
+                /*if (count == 0) {
                     System.out.println("nothing in list");
 
-                }
+                } */
                 for (int i = 0; i < storeList.size(); i++) {
 
                     System.out.println((i + 1) + ". " + storeList.get(i).toString());
@@ -124,15 +134,16 @@ public class Duke {
                 String arr[] = input.split(" ", 2);
                 String taskName = arr[0]; //task name
 
-             /*   if (!arr[0].equals("deadline") || !arr[0].equals("event") || !arr[0].equals("todo")) {
-                    try {
-                        throw new Exception("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return;
-                    }
-                } */
+                if (!taskName.equals("deadline") || !taskName.equals("todo") || !taskName.equals("event"))  {
+                    throw new customException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+             /*   try {
+                    if (!taskName.equals("deadline"))
+                        throw new Exception();
 
+                } catch (Exception e) {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } */
                 try {
                     if (!arr[1].isEmpty()) {
                         String theRest = arr[1];
@@ -172,7 +183,7 @@ public class Duke {
                     }
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("☹ OOPS!!! you are missing some descriptions!");
+                    System.out.println("☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
                 }
 
             }
@@ -180,7 +191,6 @@ public class Duke {
 
     }
 
-    // write to file method
     static void modifyFile(String filePath, String oldString, String newString) {
         File fileToModify = new File(filePath);
         String oldContent = "";
@@ -214,4 +224,5 @@ public class Duke {
             }
         }
     }
+
 }
