@@ -1,6 +1,6 @@
-class customException extends Exception
+class DukeException extends Exception
 {
-    public customException(String s)
+    public DukeException(String s)
     {
         // Call constructor of parent Exception
         super(s);
