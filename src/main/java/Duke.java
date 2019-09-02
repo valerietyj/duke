@@ -136,12 +136,12 @@ public class Duke {
                                 String start[] = theRest.split("/by", 2);
                                 String deadlineName = start[0]; //event name
                                 String deadlineTime = start[1]; //date
-                                String deadDate = deadlineTime.replaceAll(" ", "");
+                                //String deadDate = deadlineTime.replaceAll(" ", "");
 
                                 SimpleDateFormat inputDate = new SimpleDateFormat("dd/MM/yyy HHmm");
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyy, h:mma"); // duke to understand this format
                                 Date dlInput = inputDate.parse(deadlineTime);
-                                deadDate = formatter.format(dlInput);
+                               String deadDate = formatter.format(dlInput);
                                 // System.out.println(date);
 
                                 storeList.add(new Deadline(deadlineName, deadDate));
