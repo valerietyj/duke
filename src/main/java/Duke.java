@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Duke {
 
-    public static void main(String[] args) throws IOException, DukeException{
+    public static void main(String[] args) throws IOException, DukeException {
         ArrayList<Task> storeList = new ArrayList<>();
         String filePath = "/Users/impt/Desktop/duke/data/duke.txt";
 
@@ -22,6 +22,7 @@ public class Duke {
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(file, true);
         PrintWriter writer = new PrintWriter(fileWriter, true);
+
         //start of duke code
         String code = "";
         String input;
@@ -54,19 +55,30 @@ public class Duke {
                 System.out.println("[" + status + "] " + storeList.get(list - 1).description);
 
                 //  System.out.println(storeList.get(list-1).storeList());
-                modifyFile(filePath, toOverwrite, storeList.get(list-1).storeList());
+                modifyFile(filePath, toOverwrite, storeList.get(list - 1).storeList());
+
+            } else if (taskDone.equals("find")) {
+                int print = 0;
+                for (int i = 0; i < storeList.size(); i++) {
+                    if (storeList.get(i).description.contains(parts[1])) {
+                        System.out.println((i + 1) + ". " + storeList.get(i).toString());
+                        print++;
+                    }
+                }
+                if (print ==0) {
+                    System.out.println("can't find matching data sorry!");
+                }
 
             } else if (taskDone.equals("delete")) {
                 int list = Integer.parseInt(parts[1]);
                 System.out.println("Noted. I've removed this task: ");
-                System.out.println(storeList.get(list-1).toString());
-                deleteLine(filePath, storeList.get(list-1).storeList());
-                if (storeList.get(list-1).getStatusIcon() == "NO") {
+                System.out.println(storeList.get(list - 1).toString());
+                deleteLine(filePath, storeList.get(list - 1).storeList());
+                if (storeList.get(list - 1).getStatusIcon() == "NO") {
                     taskCount--;
                 }
-                storeList.remove(list -1);
+                storeList.remove(list - 1);
                 System.out.println("Now you have " + (taskCount) + " tasks in the list.");
-
 
             } else if (input.equals("list")) {
                 for (int i = 0; i < storeList.size(); i++) {
@@ -85,7 +97,7 @@ public class Duke {
                 String taskName = arr[0]; //task name
 
                 Scanner sc1 = new Scanner(arr[0]);
-                if (sc1.hasNext("todo") || sc1.hasNext("deadline") || sc1.hasNext("event")){
+                if (sc1.hasNext("todo") || sc1.hasNext("deadline") || sc1.hasNext("event")) {
                     //  System.out.print("");
                     try {
                         if (!arr[1].isEmpty()) {
@@ -102,8 +114,10 @@ public class Duke {
                                 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyy, h:mma"); // duke to understand this format
                                 Date dlInput = inputDate.parse(deadlineTime);
 
-                               String deadDate = formatter.format(dlInput);
+                                String deadDate = formatter.format(dlInput);
                                 // System.out.println(date);
+                                deadDate = formatter.format(dlInput);
+
 
                                 deadDate = formatter.format(dlInput);
 
@@ -127,22 +141,20 @@ public class Duke {
                             }
 
 
-                            writer.println(storeList.get(storeList.size()-1).storeList());
+                            writer.println(storeList.get(storeList.size() - 1).storeList());
 
 
                             System.out.println("Got it. I've added this task: ");
-                            System.out.println(storeList.get(storeList.size()-1).toString());
+                            System.out.println(storeList.get(storeList.size() - 1).toString());
                             taskCount++;
                             System.out.println("Now you have " + (taskCount) + " tasks in the list.");
 
                         }
-                    }
-                    catch (ArrayIndexOutOfBoundsException | ParseException e) {
+                    } catch (ArrayIndexOutOfBoundsException | ParseException e) {
                         System.out.println("☹ OOPS!!! The description of a " + taskName + " cannot be empty.");
                     }
 
-                }
-                else {
+                } else {
                     try {
                         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     } catch (DukeException e) {
@@ -154,8 +166,6 @@ public class Duke {
         } while (!input.isEmpty());
 
         writer.close();
-
-
     }
 
     static void deleteLine(String filePath, String lineToDelete) {
@@ -206,7 +216,6 @@ public class Duke {
             ex.printStackTrace();
         }
     }
-
 
 
     static int writeFile(String filePath, ArrayList<Task> storeList) throws IOException {
