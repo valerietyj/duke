@@ -1,0 +1,23 @@
+Hello from
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+________________________________
+Hello! I'm Duke
+What can I do for you?
+________________________________
+list is empty
+Got it. I've added this task: 
+[T][NO]  read book
+Now you have 1 tasks in the list.
+1. [T][NO]  read book
+Got it. I've added this task: 
+[D][NO]  run  (by: 09 Sep 2019, 6:00pm)
+Now you have 2 tasks in the list.
+[YES]  read book
+1. [T][YES]  read book
+2. [D][NO]  run  (by: 09 Sep 2019, 6:00pm)
+Bye. Hope to see you again soon!

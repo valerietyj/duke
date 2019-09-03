@@ -1,0 +1,7 @@
+list
+todo read book
+list
+deadline run /by 09/09/2019 1800
+done 1
+list
+bye
