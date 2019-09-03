@@ -1,3 +1,5 @@
+import com.sun.tools.javac.Main;
+
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -19,17 +21,21 @@ public class Ui {
 
 
     }
+    Scanner sc = new Scanner(System.in);
 
-    static String readCommand() throws ParseException {
-        String input;
+    public String readCommand() throws ParseException {
+        String input = "";
 
         do {
-            Scanner sc = new Scanner(System.in);
             input = sc.nextLine();
             return (input);
         }
-        while (!input.isEmpty());
+        while (sc.hasNextLine());
 
+    }
+
+    private boolean checkNextLine() {
+        return sc.hasNextLine();
     }
 
     public void showMessage(String message) {
