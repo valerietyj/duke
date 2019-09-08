@@ -34,9 +34,9 @@ public class Ui {
 
     }
 
-    private boolean checkNextLine() {
+   /* private boolean checkNextLine() {
         return sc.hasNextLine();
-    }
+    } */
 
     public void showMessage(String message) {
         System.out.println(message);
