@@ -3,9 +3,14 @@ import com.sun.tools.javac.Main;
 import java.text.ParseException;
 import java.util.Scanner;
 
+/**
+ * user interface of duke
+ */
 public class Ui {
 
-
+    /**
+     * Duke start interface
+     */
     static void showWelcome() {
         //start of duke code
         String logo = " ____        _        \n"
@@ -23,6 +28,10 @@ public class Ui {
     }
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * @return pass user input to Parser class
+     * @throws ParseException checked exception used to check if failed to parse date in the correct format [dd/mm/yyyy 0000]
+     */
     public String readCommand() throws ParseException {
         String input = "";
 
@@ -33,10 +42,6 @@ public class Ui {
         while (sc.hasNextLine());
 
     }
-
-   /* private boolean checkNextLine() {
-        return sc.hasNextLine();
-    } */
 
     public void showMessage(String message) {
         System.out.println(message);

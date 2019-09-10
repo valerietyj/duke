@@ -2,13 +2,24 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * has functions to modify, read from or write to file
+ */
 public class Storage {
     private static String new_filePath;
 
+    /**
+     *
+     * @param filePath is the destination that want file to be read from / write to
+     */
     Storage (String filePath) {
        new_filePath = filePath;
     }
 
+    /**
+     * when user add tasks to list, at the same time will write to file
+     * @param string string format will be written in the format of Task.storeList() format
+     */
     static void writeToFile(String string){
 
         File file = new File(new_filePath);
@@ -23,6 +34,12 @@ public class Storage {
         }
     }
     //for markAsDone
+
+    /**
+     * when user mark tasks as done, will update both list and file
+     * @param oldString is the task that wasn't mark as done yet
+     * @param newString is the task that have already been marked as done
+     */
     static void modifyFile(String oldString, String newString) {
         File fileToModify = new File(new_filePath);
         String oldContent = "";
@@ -56,6 +73,10 @@ public class Storage {
         }
     }
 
+    /**
+     * when deleting task in list, also have to update the .txt file
+     * @param lineToDelete find exact line in the file to delete
+     */
     static void deleteLine(String lineToDelete) {
         try {
 
@@ -106,6 +127,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the data from the hard disk when Duke starts up
+     * @return all tasks from file to list on duke
+
+     */
     static ArrayList<Task> load() throws IOException {
         // write file onto list
         int taskCount =0;

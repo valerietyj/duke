@@ -3,7 +3,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * class Parser make sense of user input which will pass on to the different command class if input is valid
+ */
 public class Parser {
+
+    /**
+     * divide input to match function that Duke has
+     * @param input breakdown input to teach Duke what to do
+     * @return user inputs to the different command class
+     * @throws ParseException checked exception used to check if failed to parse date in the correct format [dd/mm/yyyy 0000]
+     * @throws DukeException Teach Duke to deal with errors when there is incorrect inputs entered by the user.
+     */
 
     public static Command parse(String input) throws ParseException, DukeException {
 
@@ -11,7 +22,6 @@ public class Parser {
         int list = 0;
         String[] parts = s.split(" ");
         String userAction = parts[0];
-
 
         if (userAction.equals("done")) {
             try {
@@ -98,13 +108,16 @@ public class Parser {
                             return new AddCommand("todo", taskdesc, null);
                         }
                     } else {
-                        return new errorCommand("☹ OOPS!!! The description of a " + userAction + " cannot be empty.");
+                        throw new DukeException("☹ OOPS!!! The description of a " + userAction + " cannot be empty.");
+
                     }
             } else {
-                return new errorCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
             }
         }
-        return new errorCommand("Try again");
+        throw new DukeException("try again");
+
     }
 
 }
