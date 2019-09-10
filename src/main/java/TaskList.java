@@ -57,8 +57,8 @@ public class TaskList {
      * @param code is either todo, deadline or event
      * @param desc describes the type of tasks / event that user has
      * @param date is used for deadline and event.
-     *             The specified format for deadline is deadline <task desc> /by dd/mm/yyyy 0000 (0000 is time in 24-hour format)
-     *             The specified format for deadline is event <task desc> /at< dd/mm/yyyy 0000 (0000 is time in 24-hour format)
+     *             The specified format for deadline is deadline [task desc] /by dd/mm/yyyy 0000 (0000 is time in 24-hour format)
+     *             The specified format for deadline is event [task desc] /at dd/mm/yyyy 0000 (0000 is time in 24-hour format)
      */
     void add (String code, String desc, String date) {
         currentTC = getTC();

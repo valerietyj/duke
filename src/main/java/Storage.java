@@ -130,7 +130,7 @@ public class Storage {
     /**
      * Load the data from the hard disk when Duke starts up
      * @return all tasks from file to list on duke
-
+     * @throws IOException -cause-
      */
     static ArrayList<Task> load() throws IOException {
         // write file onto list
